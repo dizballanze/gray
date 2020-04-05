@@ -36,7 +36,7 @@ parser = configargparse.ArgumentParser(
 )
 
 parser.add_argument(
-    "paths", nargs="+", help="Paths to format", type=Path, default=".",
+    "paths", nargs="*", help="Paths to format", type=Path, default=(Path("."),),
 )
 
 group = parser.add_argument_group("Logging options")
@@ -70,5 +70,5 @@ def main():
     process(arguments)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

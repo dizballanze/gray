@@ -1,9 +1,9 @@
 import logging
-
-from configargparse import Namespace
 from pathlib import Path
 from types import MappingProxyType
-from typing import Sequence, Iterator
+from typing import Iterator, Sequence
+
+from configargparse import Namespace
 
 from gray.formatters.add_trailing_comma import AddTrailingCommaFormatter
 from gray.formatters.base import BaseFormatter
@@ -28,8 +28,7 @@ def gen_filepaths(paths: Sequence[Path]) -> Iterator[Path]:
         if path.is_file():
             yield path
         elif path.is_dir():
-            for file_path in path.glob("**/*.py"):
-                yield file_path
+            yield from path.glob("**/*.py")
 
 
 def process(arguments: Namespace):

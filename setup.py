@@ -53,7 +53,7 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "{0} = {0}.main:main".format(module_name)
-        ]
+            "{0} = {0}.main:main".format(module_name),
+        ],
     },
 )
