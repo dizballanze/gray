@@ -6,14 +6,14 @@ from pathlib import Path
 import configargparse
 from prettylog import LogFormat, basic_config
 
-from gray.processing import FORMATTERS, process
+from gray.formatters import FORMATTERS
+from gray.processing import process
 from gray.utils.args import parse_formatters
 
 
 FORMATTERS_NAMES = ",".join(FORMATTERS.keys())
 
 log = logging.getLogger(__name__)
-
 
 
 parser = configargparse.ArgumentParser(

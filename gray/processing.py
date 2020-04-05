@@ -1,26 +1,13 @@
 import logging
 from pathlib import Path
-from types import MappingProxyType
 from typing import Iterator, Sequence
 
 from configargparse import Namespace
 
-from gray.formatters.add_trailing_comma import AddTrailingCommaFormatter
-from gray.formatters.base import BaseFormatter
-from gray.formatters.composite import CompositeFormatter
-from gray.formatters.isort import SortImportsFormatter
-from gray.formatters.pyupgrade import PyUpgradeFormatter
-from gray.formatters.unify import UnifyFormatter
+from gray.formatters import BaseFormatter
 
 
 log = logging.getLogger(__name__)
-
-FORMATTERS = MappingProxyType({
-    "add-trailing-comma": AddTrailingCommaFormatter,
-    "isort": SortImportsFormatter,
-    "pyupgrade": PyUpgradeFormatter,
-    "unify": UnifyFormatter,
-})
 
 
 def gen_filepaths(paths: Sequence[Path]) -> Iterator[Path]:

@@ -1,4 +1,3 @@
-from argparse import Namespace
 from pathlib import Path
 
 from isort import SortImports

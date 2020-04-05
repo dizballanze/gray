@@ -1,7 +1,6 @@
 from configargparse import ArgumentError
 
-from gray.formatters.composite import CompositeFormatter
-from gray.processing import FORMATTERS
+from gray.formatters import CompositeFormatter, FORMATTERS
 
 
 def parse_formatters(v):
