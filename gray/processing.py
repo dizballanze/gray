@@ -4,7 +4,7 @@ from typing import Iterator, Sequence
 
 from configargparse import Namespace
 
-from gray.formatters import BaseFormatter
+from gray.formatters import FORMATTERS, BaseFormatter, CompositeFormatter
 
 
 log = logging.getLogger(__name__)
@@ -19,8 +19,11 @@ def gen_filepaths(paths: Sequence[Path]) -> Iterator[Path]:
 
 
 def process(arguments: Namespace):
+    formatter = CompositeFormatter(
+        *[FORMATTERS[k](arguments) for k in arguments.formatters],
+    )
     for path in gen_filepaths(arguments.paths):
-        fade_file(path, arguments.formatters)
+        fade_file(path, formatter)
 
 
 def fade_file(file_path: Path, formatter: BaseFormatter):

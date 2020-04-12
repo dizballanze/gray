@@ -3,7 +3,14 @@
 [![](https://badge.fury.io/py/gray.png)](http://badge.fury.io/py/gray)
 [![](https://travis-ci.org/dizballanze/gray.png?branch=master)](https://travis-ci.org/dizballanze/gray)
 
-Less uncompromising Python code formatter
+Less uncompromising Python code formatter.
+
+Gray stands on the shoulders of giants:
+
+- [isort](https://timothycrosley.github.io/isort/) - imports sorting and more
+- [pyupgrade](https://github.com/asottile/pyupgrade) - automatically upgrades syntax for newer versions of Python
+- [add-trailing-comma](https://github.com/asottile/add-trailing-comma)
+- [unify](https://github.com/myint/unify) - unify quotes style
 
 ## Usage
 

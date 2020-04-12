@@ -58,6 +58,13 @@ group.add_argument(
     default=FORMATTERS_NAMES,
 )
 
+group = parser.add_argument_group("Unify options")
+group.add_argument(
+    "--quote",
+    help="preferred quote",
+    default='"',
+)
+
 
 def main():
     arguments = parser.parse_args()
