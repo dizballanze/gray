@@ -60,9 +60,35 @@ group.add_argument(
 
 group = parser.add_argument_group("Unify options")
 group.add_argument(
-    "--quote",
+    "--unify-quote",
     help="preferred quote",
     default='"',
+)
+
+group = parser.add_argument_group("isort options")
+group.add_argument(
+    "--isort-line-length",
+    help="isort section",
+    type=int,
+    default=80,
+)
+group.add_argument(
+    "--isort-virtual-env",
+    help="virtual env path",
+    type=Path,
+    default=os.environ.get("VIRTUAL_ENV", "env"),
+)
+group.add_argument(
+    "--isort-include-trailing-comma",
+    help="include a trailing comma on multi line imports",
+    type=int,
+    default=1,
+)
+group.add_argument(
+    "--isort-lines-after-imports",
+    help="empty lines after imports",
+    type=int,
+    default=2,
 )
 
 

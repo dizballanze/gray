@@ -12,11 +12,10 @@ class UnifyFormatter(BaseFormatter):
     _quote: str
 
     def __init__(self, arguments: Namespace):
-        self._quote = arguments.quote
+        self._args = Namespace(
+            in_place=True,
+            quote=arguments.unify_quote,
+        )
 
     def process(self, file_path: Path):
-        args = Namespace(
-            in_place=True,
-            quote=self._quote,
-        )
-        format_file(str(file_path), args, None)
+        format_file(str(file_path), self._args, None)
