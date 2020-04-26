@@ -43,6 +43,25 @@ Formatters options:
                         trailing-comma,isort,pyupgrade,unify)
 ```
 
+## Git Hook
+
+You can setup gray formatting before each commit with pre-commit git hook.
+Add following file to `.git/hooks/pre-commit` and make it executable with
+`chmod +x .git/hooks/pre-commit`.
+
+```
+#!/usr/bin/env python
+from gray.hooks import git_pre_commit
+
+exit(git_pre_commit(stop_on_modify=True))
+```
+
+If `stop_on_modify` argument is `True`, hook will prevent commit if there are
+any unstaged changes in files you about to commit.
+
+Otherwise, any unstaged changes in this files will be added to the index
+by the hook.
+
 ## Features
 
 * TODO

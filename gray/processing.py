@@ -12,7 +12,7 @@ log = logging.getLogger(__name__)
 
 def gen_filepaths(paths: Sequence[Path]) -> Iterator[Path]:
     for path in paths:
-        if path.is_file():
+        if path.is_file() and (path.suffix == ".py"):
             yield path
         elif path.is_dir():
             yield from path.glob("**/*.py")
