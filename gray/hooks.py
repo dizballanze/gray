@@ -27,7 +27,7 @@ def git_pre_commit(stop_on_modify=True):
         return 0
 
     staged_files_fullpath = [str(root_dir / f) for f in staged_files]
-    arguments = parser.parse_args(args=' '.join(staged_files_fullpath))
+    arguments = parser.parse_args(args=" ".join(staged_files_fullpath))
     process(arguments)
 
     modified_files = command_lines(DIFF_NOT_CACHED_CMD)
@@ -39,7 +39,7 @@ def git_pre_commit(stop_on_modify=True):
         print("*" * 40)
         print(
             "Gray formattter. "
-            "There are unstaged changes in the following files:"
+            "There are unstaged changes in the following files:",
         )
         for f in diff:
             print(f)
