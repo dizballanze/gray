@@ -34,6 +34,7 @@ optional arguments:
   -h, --help            show this help message and exit
   --pool-size POOL_SIZE
                         process pool size (default: 8)
+  --do-not-detect-venv  Don't try to detect virtualenv (default: False)
 
 Logging options:
   --log-level {debug,info,warning,error,fatal}
@@ -43,8 +44,15 @@ Formatters options:
   -f FORMATTERS, --formatters FORMATTERS
                         Enabled formatters separated by comma (default: add-
                         trailing-comma,isort,pyupgrade,unify)
+  --min-python-version MIN_PYTHON_VERSION
+                        Minimum python version to support (default: (3, 7))
 
-Unify options:
+pyupgrade options:
+  --pyupgrade-keep-percent-format
+                        Do not upgrade percent formatted strings to f-strings
+                        (default: False)
+
+unify options:
   --unify-quote UNIFY_QUOTE
                         preferred quote (default: ")
 

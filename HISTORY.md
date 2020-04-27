@@ -1,5 +1,13 @@
 ## History
 
+0.4.0
+----------------------
+
+* Minimum python version option
+* Pyupgrade options
+* Detecting and skipping virtualenv
+
+
 0.3.0
 ----------------------
 
