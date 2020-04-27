@@ -12,7 +12,7 @@ log = logging.getLogger(__name__)
 
 
 class FormattingError(Exception):
-    pass
+    exit_code = 1
 
 
 def gen_filepaths(paths: Sequence[Path]) -> Iterator[Path]:
@@ -26,9 +26,9 @@ def gen_filepaths(paths: Sequence[Path]) -> Iterator[Path]:
 
 
 def fade_file(file_path: Path, formatter: BaseFormatter):
-    log.info("Going to process file %s", file_path)
+    log.debug("Going to process file %s", file_path)
     formatter.process(file_path)
-    log.info("%s file was processed", file_path)
+    log.info("\"%s\" file was processed", file_path)
 
 
 def worker(tasks: Queue, result: Queue, formatter: BaseFormatter):
@@ -39,6 +39,7 @@ def worker(tasks: Queue, result: Queue, formatter: BaseFormatter):
         try:
             fade_file(fname, formatter)
         except Exception as e:
+            log.exception("Failed to reformat file \"%s\"", fname)
             err = e
 
         result.put_nowait((fname, err))
@@ -64,6 +65,7 @@ def process(arguments: Namespace):
         tasks.put_nowait(fname)
 
     failed = False
+    wrong_files = []
 
     try:
         while tasks_map:
@@ -71,17 +73,19 @@ def process(arguments: Namespace):
 
             if exc:
                 failed = True
-                log.error("Error when processing file %r: %r", fname, exc)
-
+                wrong_files.append(fname)
             tasks_map.remove(fname)
 
         if failed:
+            for fname in wrong_files:
+                log.error("Failed when processing \"%s\"", fname)
+
             raise FormattingError(
-                "Formatting failed please check previous errors",
+                "Formatting failed please check previous errors", wrong_files,
             )
     finally:
         for _ in range(arguments.pool_size):
             tasks.put(None)
 
-        for process in processes:
-            process.join()
+        for prc in processes:
+            prc.join()
