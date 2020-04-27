@@ -1,6 +1,7 @@
 import argparse
 import logging
 import os
+import sys
 from pathlib import Path
 
 import configargparse
@@ -64,8 +65,21 @@ group.add_argument(
     type=parse_formatters,
     default=FORMATTERS_NAMES,
 )
+group.add_argument(
+    "--min-python-version",
+    help="Minimum python version to support",
+    default=(sys.version_info.major, sys.version_info.minor),
+    type=lambda x: tuple(int(d) for d in x.split(".")),
+)
 
-group = parser.add_argument_group("Unify options")
+group = parser.add_argument_group("pyupgrade options")
+group.add_argument(
+    "--pyupgrade-keep-percent-format",
+    help="Do not upgrade percent formatted strings to f-strings",
+    action="store_true",
+)
+
+group = parser.add_argument_group("unify options")
 group.add_argument(
     "--unify-quote",
     help="preferred quote",
