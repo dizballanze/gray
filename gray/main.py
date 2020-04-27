@@ -39,6 +39,13 @@ parser.add_argument(
     "paths", nargs="*", help="Paths to format", type=Path, default=(Path("."),),
 )
 
+parser.add_argument(
+    "--pool-size",
+    help="process pool size",
+    type=int,
+    default=8,
+)
+
 group = parser.add_argument_group("Logging options")
 group.add_argument(
     "--log-level",
