@@ -20,9 +20,8 @@ usage:
         gray myproj/ tests/
         gray --log-level debug --formatters isort,unify ~/app
 
-
 Less uncompromising Python code formatter. Args that start with '--' (eg.
---log-level) can also be set in a config file (/Users/dizballanze/.gray or
+--pool-size) can also be set in a config file (/Users/dizballanze/.gray or
 /etc/gray.conf or ./gray.conf). Config file syntax allows: key=value,
 flag=true, stuff=[a,b,c] (for details, see syntax at https://goo.gl/R74nmi).
 If an arg is specified in more than one place, then commandline values
@@ -33,6 +32,8 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
+  --pool-size POOL_SIZE
+                        process pool size (default: 8)
 
 Logging options:
   --log-level {debug,info,warning,error,fatal}
