@@ -47,6 +47,12 @@ parser.add_argument(
     default=8,
 )
 
+parser.add_argument(
+    "--do-not-detect-venv",
+    help="Don't try to detect virtualenv",
+    action="store_true",
+)
+
 group = parser.add_argument_group("Logging options")
 group.add_argument(
     "--log-level",

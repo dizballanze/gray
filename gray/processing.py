@@ -15,11 +15,27 @@ class FormattingError(Exception):
     exit_code = 1
 
 
-def gen_filepaths(paths: Sequence[Path]) -> Iterator[Path]:
+def is_venv(path: Path):
+   return all((
+       (path / "bin" / "python").exists(),
+       (path / "pyvenv.cfg").is_file(),
+   ))
+
+
+def gen_filepaths(
+        paths: Sequence[Path],
+        process_venv: bool = True,
+) -> Iterator[Path]:
     for path in paths:
         if path.is_file() and (path.suffix == ".py"):
             yield path
         elif path.is_dir():
+            if is_venv(path) and not process_venv:
+                log.warning(
+                    "%s looks like virtualenv directory. Skipping... ", path,
+                )
+                log.warning("Use --do-not-detect-venv flag to turn this off")
+                continue
             yield from path.glob("**/*.py")
         else:
             log.debug("Skipping %r", path)
@@ -60,7 +76,7 @@ def process(arguments: Namespace):
         prc.start()
 
     tasks_map = set()
-    for fname in gen_filepaths(arguments.paths):
+    for fname in gen_filepaths(arguments.paths, arguments.do_not_detect_venv):
         tasks_map.add(fname)
         tasks.put_nowait(fname)
 
