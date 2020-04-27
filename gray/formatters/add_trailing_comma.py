@@ -16,7 +16,6 @@ class AddTrailingCommaFormatter(BaseFormatter):
             py36_plus=(min_version >= (3, 6)),
             exit_zero_even_if_changed=True,
         )
-        print(self._args)
 
     def process(self, file_path: Path):
         fix_file(str(file_path), self._args)
