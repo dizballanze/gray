@@ -1,5 +1,5 @@
 import logging
-from multiprocessing import Queue, Process
+from multiprocessing import Process, Queue
 from pathlib import Path
 from typing import Iterator, Sequence
 
@@ -9,6 +9,10 @@ from gray.formatters import FORMATTERS, BaseFormatter, CompositeFormatter
 
 
 log = logging.getLogger(__name__)
+
+
+class FormattingError(Exception):
+    pass
 
 
 def gen_filepaths(paths: Sequence[Path]) -> Iterator[Path]:
@@ -59,14 +63,22 @@ def process(arguments: Namespace):
         tasks_map.add(fname)
         tasks.put_nowait(fname)
 
+    failed = False
+
     try:
         while tasks_map:
             fname, exc = results.get()
 
             if exc:
+                failed = True
                 log.error("Error when processing file %r: %r", fname, exc)
 
             tasks_map.remove(fname)
+
+        if failed:
+            raise FormattingError(
+                "Formatting failed please check previous errors",
+            )
     finally:
         for _ in range(arguments.pool_size):
             tasks.put(None)
