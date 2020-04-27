@@ -7,7 +7,7 @@ import configargparse
 from prettylog import LogFormat, basic_config
 
 from gray.formatters import FORMATTERS
-from gray.processing import process
+from gray.processing import FormattingError, process
 from gray.utils.args import parse_formatters
 
 
@@ -37,6 +37,13 @@ parser = configargparse.ArgumentParser(
 
 parser.add_argument(
     "paths", nargs="*", help="Paths to format", type=Path, default=(Path("."),),
+)
+
+parser.add_argument(
+    "--pool-size",
+    help="process pool size",
+    type=int,
+    default=8,
 )
 
 group = parser.add_argument_group("Logging options")
@@ -100,7 +107,11 @@ def main():
         buffered=False,
         date_format=None,
     )
-    process(arguments)
+
+    try:
+        process(arguments)
+    except FormattingError as e:
+        exit(e.exit_code)
 
 
 if __name__ == "__main__":
