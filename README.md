@@ -1,7 +1,7 @@
 # gray
 
-[![](https://badge.fury.io/py/gray.png)](http://badge.fury.io/py/gray)
-[![](https://travis-ci.org/dizballanze/gray.png?branch=master)](https://travis-ci.org/dizballanze/gray)
+[![Package Version](https://badge.fury.io/py/gray.svg)](http://badge.fury.io/py/gray)
+[![Build Status](https://travis-ci.org/dizballanze/gray.svg?branch=master)](https://travis-ci.org/dizballanze/gray)
 
 Less uncompromising Python code formatter.
 
@@ -75,7 +75,7 @@ You can setup gray formatting before each commit with pre-commit git hook.
 Add following file to `.git/hooks/pre-commit` and make it executable with
 `chmod +x .git/hooks/pre-commit`.
 
-```
+```python
 #!/usr/bin/env python
 from gray.hooks import git_pre_commit
 
