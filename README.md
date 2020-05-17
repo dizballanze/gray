@@ -12,6 +12,7 @@ Gray stands on the shoulders of giants:
 - [add-trailing-comma](https://github.com/asottile/add-trailing-comma)
 - [unify](https://github.com/myint/unify) - unify quotes style
 
+
 ## Usage
 
 ```
@@ -69,6 +70,7 @@ isort options:
                         empty lines after imports (default: 2)
 ```
 
+
 ## Git Hook
 
 You can setup gray formatting before each commit with pre-commit git hook.
@@ -87,6 +89,19 @@ any unstaged changes in files you about to commit.
 
 Otherwise, any unstaged changes in this files will be added to the index
 by the hook.
+
+
+## Config file
+
+Gray is looking for config file in `./gray.conf`, `/etc/gray.conf` or `~/.gray`.
+
+Example of grayconf:
+
+```
+formatters = add-trailing-comma,isort,unify
+min-python-version = 3.5
+```
+
 
 ## Features
 
