@@ -9,7 +9,7 @@ from prettylog import LogFormat, basic_config
 
 from gray.formatters import FORMATTERS
 from gray.processing import FormattingError, process
-from gray.utils.args import parse_formatters
+from gray.utils.args import parse_bool, parse_formatters
 
 
 FORMATTERS_NAMES = ",".join(FORMATTERS.keys())
@@ -116,6 +116,33 @@ group.add_argument(
     help="empty lines after imports",
     type=int,
     default=2,
+)
+
+group = parser.add_argument_group("autoflake options")
+group.add_argument(
+    "--autoflake-ignore-init-module-imports",
+    type=parse_bool,
+    default=True,
+)
+group.add_argument(
+    "--autoflake-expand-star-imports",
+    type=parse_bool,
+    default=False,
+)
+group.add_argument(
+    "--autoflake-remove-all-unused-imports",
+    type=parse_bool,
+    default=True,
+)
+group.add_argument(
+    "--autoflake-remove-duplicate-keys",
+    type=parse_bool,
+    default=True,
+)
+group.add_argument(
+    "--autoflake-remove-unused-variables",
+    type=parse_bool,
+    default=True,
 )
 
 
