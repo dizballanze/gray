@@ -4,4 +4,6 @@ ConfigArgParse>=1.0.0,<2
 isort~=4.3.21
 prettylog~=0.3.0
 pyupgrade~=2.1.0
+trim~=0.3
 unify~=0.5
+-e git+https://github.com/dizballanze/trim#egg=trim

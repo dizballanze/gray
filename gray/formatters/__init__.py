@@ -6,6 +6,7 @@ from .base import BaseFormatter
 from .composite import CompositeFormatter
 from .isort import SortImportsFormatter
 from .pyupgrade import PyUpgradeFormatter
+from .trim import TrimFormatter
 from .unify import UnifyFormatter
 
 
@@ -14,6 +15,7 @@ FORMATTERS = MappingProxyType({
     "autoflake": AutoflakeFormatter,
     "isort": SortImportsFormatter,
     "pyupgrade": PyUpgradeFormatter,
+    "trim": TrimFormatter,
     "unify": UnifyFormatter,
 })
 

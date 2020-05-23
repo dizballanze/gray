@@ -145,6 +145,13 @@ group.add_argument(
     default=True,
 )
 
+group = parser.add_argument_group("trim options")
+group.add_argument(
+    "--trim-leading-newlines",
+    type=parse_bool,
+    default=True,
+)
+
 
 def main():
     arguments = parser.parse_args()
