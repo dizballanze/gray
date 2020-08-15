@@ -82,7 +82,8 @@ group = parser.add_argument_group("pyupgrade options")
 group.add_argument(
     "--pyupgrade-keep-percent-format",
     help="Do not upgrade percent formatted strings to f-strings",
-    action="store_true",
+    type=parse_bool,
+    default=False,
 )
 
 group = parser.add_argument_group("unify options")

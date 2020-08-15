@@ -1,5 +1,11 @@
 ## History
 
+0.5.0
+----------------------
+
+* Add autoflake formatter
+* Add trim formatter
+
 0.4.0
 ----------------------
 

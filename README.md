@@ -9,7 +9,9 @@ Gray stands on the shoulders of giants:
 
 - [isort](https://timothycrosley.github.io/isort/) - imports sorting and more
 - [pyupgrade](https://github.com/asottile/pyupgrade) - automatically upgrades syntax for newer versions of Python
+- [autoflake](https://github.com/myint/autoflake) - remove unused imports and variables
 - [add-trailing-comma](https://github.com/asottile/add-trailing-comma)
+- [trim](https://github.com/myint/trim) - remove trailing whitespaces
 - [unify](https://github.com/myint/unify) - unify quotes style
 
 
@@ -20,6 +22,7 @@ usage:
         gray myapp.py
         gray myproj/ tests/
         gray --log-level debug --formatters isort,unify ~/app
+
 
 Less uncompromising Python code formatter. Args that start with '--' (eg.
 --pool-size) can also be set in a config file (/Users/dizballanze/.gray or
@@ -44,7 +47,7 @@ Logging options:
 Formatters options:
   -f FORMATTERS, --formatters FORMATTERS
                         Enabled formatters separated by comma (default: add-
-                        trailing-comma,isort,pyupgrade,unify)
+                        trailing-comma,autoflake,isort,pyupgrade,trim,unify)
   --min-python-version MIN_PYTHON_VERSION
                         Minimum python version to support (default: (3, 7))
 
@@ -68,6 +71,16 @@ isort options:
                         (default: 1)
   --isort-lines-after-imports ISORT_LINES_AFTER_IMPORTS
                         empty lines after imports (default: 2)
+
+autoflake options:
+  --autoflake-ignore-init-module-imports AUTOFLAKE_IGNORE_INIT_MODULE_IMPORTS
+  --autoflake-expand-star-imports AUTOFLAKE_EXPAND_STAR_IMPORTS
+  --autoflake-remove-all-unused-imports AUTOFLAKE_REMOVE_ALL_UNUSED_IMPORTS
+  --autoflake-remove-duplicate-keys AUTOFLAKE_REMOVE_DUPLICATE_KEYS
+  --autoflake-remove-unused-variables AUTOFLAKE_REMOVE_UNUSED_VARIABLES
+
+trim options:
+  --trim-leading-newlines TRIM_LEADING_NEWLINES
 ```
 
 
