@@ -1,9 +1,8 @@
 from argparse import Namespace
 from pathlib import Path
 
-from trim import trim_file
-
 from gray.formatters.base import BaseFormatter
+from gray.vendors.trim import trim_file
 
 
 class TrimFormatter(BaseFormatter):
