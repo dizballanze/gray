@@ -1,5 +1,11 @@
 ## History
 
+0.6.0
+----------------------
+
+* Bump isort to 5.4.2
+* Use parentheses in multiline imports
+
 0.5.0
 ----------------------
 

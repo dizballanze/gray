@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from configargparse import Namespace
-from isort import SortImports
+from isort.api import sort_file
 
 from gray.formatters.base import BaseFormatter
 
@@ -12,7 +12,6 @@ class SortImportsFormatter(BaseFormatter):
         self._settings = {
             "quiet": False,
             "verbose": False,
-            "check": False,
             "sections": [
                 "FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER",
             ],
@@ -24,10 +23,11 @@ class SortImportsFormatter(BaseFormatter):
             "virtual_env": str(arguments.isort_virtual_env),
             "include_trailing_comma": arguments.isort_include_trailing_comma,
             "lines_after_imports": arguments.isort_lines_after_imports,
+            "use_parentheses": True,
         }
 
     def process(self, file_path: Path):
-        SortImports(
-            file_path=str(file_path),
+        sort_file(
+            filename=str(file_path),
             **self._settings,
         )
