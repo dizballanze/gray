@@ -115,8 +115,14 @@ formatters = add-trailing-comma,isort,unify
 min-python-version = 3.5
 ```
 
-
 ## Features
 
 * TODO
 
+## Using with Sourcetree
+Sourcetree may run without `gray` being available via `PATH`.
+
+### MacOS
+Make sure `gray` is available via `PATH` and run `open /Applications/Sourcetree.app`.
+Or better [create](https://stackoverflow.com/a/281455/1555653) an `Automator` workflow 
+with `source ~/.bash_profile && open /Applications/Sourcetree.app` script.
