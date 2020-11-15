@@ -3,8 +3,7 @@ repos:
     hooks:
       - id: gray
         name: gray
+        language: system
         entry: gray
-        language: python
-        language_version: python3
         require_serial: true
         types: [python]
