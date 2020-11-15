@@ -119,6 +119,22 @@ min-python-version = 3.5
 
 * TODO
 
+## Git pre-commit hook
+
+Use [pre-commit](https://pre-commit.com/). Once you
+[have it installed](https://pre-commit.com/#install), add this to the
+`.pre-commit-config.yaml` in your repository:
+
+```yaml
+repos:
+  - repo: https://github.com/dizballanze/gray
+    rev: master # Replace by any tag/branch: https://github.com/dizballanze/gray/tags
+    hooks:
+      - id: gray
+```
+
+and run `pre-commit install`.
+
 ## Using with Sourcetree
 Sourcetree may run without `gray` being available via `PATH`.
 
