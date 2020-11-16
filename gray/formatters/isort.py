@@ -24,7 +24,6 @@ class SortImportsFormatter(BaseFormatter):
             "include_trailing_comma": arguments.isort_include_trailing_comma,
             "lines_after_imports": arguments.isort_lines_after_imports,
             "use_parentheses": True,
-            "no_lines_before": ["LOCALFOLDER"],
         }
 
     def process(self, file_path: Path):

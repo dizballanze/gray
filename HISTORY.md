@@ -1,5 +1,10 @@
 ## History
 
+0.6.2
+----------------------
+
+* isort: keep line breaks before local imports
+
 0.6.1
 ----------------------
 
