@@ -1,5 +1,11 @@
 ## History
 
+0.7.0
+----------------------
+
+* [pre-commit](https://pre-commit.com/) support (by [@tzoiker](https://github.com/tzoiker))
+
+
 0.6.2
 ----------------------
 
