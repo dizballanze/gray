@@ -115,8 +115,30 @@ formatters = add-trailing-comma,isort,unify
 min-python-version = 3.5
 ```
 
-
 ## Features
 
 * TODO
 
+## Git pre-commit hook
+
+Use [pre-commit](https://pre-commit.com/). Once you
+[have it installed](https://pre-commit.com/#install), add this to the
+`.pre-commit-config.yaml` in your repository:
+
+```yaml
+repos:
+  - repo: https://github.com/dizballanze/gray
+    rev: master # Replace by any tag/branch: https://github.com/dizballanze/gray/tags
+    hooks:
+      - id: gray
+```
+
+and run `pre-commit install`.
+
+## Using with Sourcetree
+Sourcetree may run without `gray` being available via `PATH`.
+
+### MacOS
+Make sure `gray` is available via `PATH` and run `open /Applications/Sourcetree.app`.
+Or better [create](https://stackoverflow.com/a/281455/1555653) an `Automator` workflow 
+with `source ~/.bash_profile && open /Applications/Sourcetree.app` script.

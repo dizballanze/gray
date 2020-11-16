@@ -1,0 +1,9 @@
+repos:
+  - repo: local
+    hooks:
+      - id: gray
+        name: gray
+        language: system
+        entry: gray
+        require_serial: true
+        types: [python]
