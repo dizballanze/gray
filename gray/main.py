@@ -153,6 +153,38 @@ group.add_argument(
     default=True,
 )
 
+group = parser.add_argument_group("fixit options")
+group.add_argument(
+    "--fixit-redundant-fstrings",
+    type=parse_bool,
+    default=True,
+)
+group.add_argument(
+    "--fixit-redundant-lambdas",
+    type=parse_bool,
+    default=True,
+)
+group.add_argument(
+    "--fixit-redundant-list-comprehensions",
+    type=parse_bool,
+    default=True,
+)
+group.add_argument(
+    "--fixit-to-comprehensions",
+    type=parse_bool,
+    default=True,
+)
+group.add_argument(
+    "--fixit-to-literals",
+    type=parse_bool,
+    default=True,
+)
+group.add_argument(
+    "--fixit-to-fstrings",
+    type=parse_bool,
+    default=True,
+)
+
 
 def main():
     arguments = parser.parse_args()

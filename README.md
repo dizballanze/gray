@@ -13,6 +13,7 @@ Gray stands on the shoulders of giants:
 - [add-trailing-comma](https://github.com/asottile/add-trailing-comma)
 - [trim](https://github.com/myint/trim) - remove trailing whitespaces
 - [unify](https://github.com/myint/unify) - unify quotes style
+- [fixit](https://github.com/Instagram/Fixit) - various code formatters on LibCST
 
 
 ## Usage
@@ -24,12 +25,7 @@ usage:
         gray --log-level debug --formatters isort,unify ~/app
 
 
-Less uncompromising Python code formatter. Args that start with '--' (eg.
---pool-size) can also be set in a config file (/Users/dizballanze/.gray or
-/etc/gray.conf or ./gray.conf). Config file syntax allows: key=value,
-flag=true, stuff=[a,b,c] (for details, see syntax at https://goo.gl/R74nmi).
-If an arg is specified in more than one place, then commandline values
-override config file values which override defaults.
+Less uncompromising Python code formatter.
 
 positional arguments:
   paths                 Paths to format (default: (PosixPath('.'),))
@@ -47,12 +43,12 @@ Logging options:
 Formatters options:
   -f FORMATTERS, --formatters FORMATTERS
                         Enabled formatters separated by comma (default: add-
-                        trailing-comma,autoflake,isort,pyupgrade,trim,unify)
+                        trailing-comma,autoflake,fixit,isort,pyupgrade,trim,unify)
   --min-python-version MIN_PYTHON_VERSION
-                        Minimum python version to support (default: (3, 7))
+                        Minimum python version to support (default: (3, 9))
 
 pyupgrade options:
-  --pyupgrade-keep-percent-format
+  --pyupgrade-keep-percent-format PYUPGRADE_KEEP_PERCENT_FORMAT
                         Do not upgrade percent formatted strings to f-strings
                         (default: False)
 
@@ -81,6 +77,20 @@ autoflake options:
 
 trim options:
   --trim-leading-newlines TRIM_LEADING_NEWLINES
+
+fixit options:
+  --fixit-redundant-fstrings FIXIT_REDUNDANT_FSTRINGS
+  --fixit-redundant-lambdas FIXIT_REDUNDANT_LAMBDAS
+  --fixit-redundant-list-comprehensions FIXIT_REDUNDANT_LIST_COMPREHENSIONS
+  --fixit-to-comprehensions FIXIT_TO_COMPREHENSIONS
+  --fixit-to-literals FIXIT_TO_LITERALS
+  --fixit-to-fstrings FIXIT_TO_FSTRINGS
+
+Args that start with '--' (eg. --pool-size) can also be set in a config file
+(/Users/apple/.gray or /etc/gray.conf or ./gray.conf). Config file syntax
+allows: key=value, flag=true, stuff=[a,b,c] (for details, see syntax at
+https://goo.gl/R74nmi). If an arg is specified in more than one place, then
+commandline values override config file values which override defaults.
 ```
 
 
