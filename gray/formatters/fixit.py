@@ -28,6 +28,8 @@ class FixitFormatter(BaseFormatter):
             self._rules.append(RewriteToComprehensionRule)
         if arguments.fixit_to_literals:
             self._rules.append(RewriteToLiteralRule)
+        if arguments.fixit_to_fstrings:
+            self._rules.append(UseFstringRule)
 
     def process(self, file_path: Path):
         report = lint_file_and_apply_patches(
