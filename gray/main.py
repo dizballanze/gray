@@ -85,6 +85,18 @@ group.add_argument(
     type=parse_bool,
     default=False,
 )
+group.add_argument(
+    "--pyupgrade-keep-mock",
+    help="Disable rewrite of mock imports",
+    type=parse_bool,
+    default=False,
+)
+group.add_argument(
+    "--pyupgrade-keep-runtime-typing",
+    help="Disable pep 585 typing rewrites",
+    type=parse_bool,
+    default=False,
+)
 
 group = parser.add_argument_group("unify options")
 group.add_argument(

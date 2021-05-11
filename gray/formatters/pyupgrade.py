@@ -2,7 +2,7 @@ from argparse import Namespace
 from pathlib import Path
 
 from configargparse import Namespace
-from pyupgrade import _fix_file
+from pyupgrade._main import _fix_file
 
 from gray.formatters.base import BaseFormatter
 
@@ -19,6 +19,8 @@ class PyUpgradeFormatter(BaseFormatter):
             min_version = (3, 7)
 
         self._args = Namespace(
+            keep_mock=arguments.pyupgrade_keep_mock,
+            keep_runtime_typing=arguments.pyupgrade_keep_runtime_typing,
             min_version=min_version,
             keep_percent_format=arguments.pyupgrade_keep_percent_format,
             exit_zero_even_if_changed=True,
