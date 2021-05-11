@@ -49,8 +49,11 @@ Formatters options:
 
 pyupgrade options:
   --pyupgrade-keep-percent-format PYUPGRADE_KEEP_PERCENT_FORMAT
-                        Do not upgrade percent formatted strings to f-strings
-                        (default: False)
+                        Do not upgrade percent formatted strings to f-strings (default: False)
+  --pyupgrade-keep-mock PYUPGRADE_KEEP_MOCK
+                        Disable rewrite of mock imports (default: False)
+  --pyupgrade-keep-runtime-typing PYUPGRADE_KEEP_RUNTIME_TYPING
+                        Disable pep 585 typing rewrites (default: False)
 
 unify options:
   --unify-quote UNIFY_QUOTE

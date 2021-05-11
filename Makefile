@@ -56,9 +56,10 @@ docs:
 	open docs/_build/html/index.html
 
 build: clean
-	python setup.py sdist
-	python setup.py bdist_wheel
+	env/bin/python -m pip install -U build
+	env/bin/python -m build
 
 
 upload: build
-	twine upload dist/*
+	env/bin/python -m pip install -U twine
+	env/bin/python -m twine upload --repository pypi dist/*
