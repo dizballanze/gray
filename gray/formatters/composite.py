@@ -4,10 +4,12 @@ from gray.formatters.base import BaseFormatter
 
 
 class CompositeFormatter(BaseFormatter):
-    _formatters: frozenset
+    # Use a list to guarantee order preserving, which can be important to
+    # ensure that the formatters are going to behave consistently.
+    _formatters: list
 
     def __init__(self, *formatters):
-        self._formatters = frozenset(formatters)
+        self._formatters = list(formatters)
 
     def process(self, file_path: Path):
         for formatter in self._formatters:
