@@ -60,16 +60,46 @@ unify options:
                         preferred quote (default: ")
 
 isort options:
+  --isort-profile ISORT_PROFILE
+                        Base profile type to use for configuration. (default: None)
   --isort-line-length ISORT_LINE_LENGTH
-                        isort section (default: 80)
+                        The max length of an import line (used for wrapping long imports)
+                        (default: 80)
+  --isort-wrap-length ISORT_WRAP_LENGTH
+                        Specifies how long lines that are wrapped should be, if not set
+                        line_length is used. NOTE: wrap_length must be LOWER than or equal to
+                        line_length (default: None)
+  --isort-multi-line-output ISORT_MULTI_LINE_OUTPUT
+                        Multi line output (0-grid, 1-vertical, 2-hanging, 3-vert-hanging, 4-vert-
+                        grid, 5-vert-grid-grouped, 6-deprecated-alias-for-5, 7-noqa, 8-vertical-
+                        hanging-indent-bracket, 9-vertical-prefix-from-module-import, 10-hanging-
+                        indent-with-parentheses). (default: 5)
+  --isort-known-third-party ISORT_KNOWN_THIRD_PARTY
+                        Force isort to recognize a module as being part of a third party library.
+                        (default: None)
+  --isort-known-first-party ISORT_KNOWN_FIRST_PARTY
+                        Force isort to recognize a module as being part of the current python
+                        project. (default: None)
+  --isort-known-local-folder ISORT_KNOWN_LOCAL_FOLDER
+                        Force isort to recognize a module as being a local folder. Generally, this
+                        is reserved for relative imports (from . import module). (default: None)
   --isort-virtual-env ISORT_VIRTUAL_ENV
-                        virtual env path (default:
-                        /Users/dizballanze/apps/gray/env)
+                        virtual env path (default: env)
   --isort-include-trailing-comma ISORT_INCLUDE_TRAILING_COMMA
-                        include a trailing comma on multi line imports
-                        (default: 1)
+                        Includes a trailing comma on multi line imports that include parentheses.
+                        (default: True)
   --isort-lines-after-imports ISORT_LINES_AFTER_IMPORTS
                         empty lines after imports (default: 2)
+  --isort-skip-gitignore ISORT_SKIP_GITIGNORE
+                        Treat project as a git repository and ignore files listed in .gitignore.
+                        (default: True)
+  --isort-use-parentheses ISORT_USE_PARENTHESES
+                        Use parentheses for line continuation on length limit instead of slashes.
+                        **NOTE**: This is separate from wrap modes, and only affects how
+                        individual lines that are too long get continued, not sections of multiple
+                        imports.. (default: True)
+  --isort-length-sort ISORT_LENGTH_SORT
+                        Sort imports by their string length. (default: False)
 
 autoflake options:
   --autoflake-ignore-init-module-imports AUTOFLAKE_IGNORE_INIT_MODULE_IMPORTS

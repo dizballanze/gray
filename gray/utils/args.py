@@ -3,23 +3,30 @@ from configargparse import ArgumentError
 from gray.formatters import FORMATTERS
 
 
-def parse_formatters(v):
-    formatters = v.split(",")
+def parse_formatters(v: str):
+    """Validate and returns the formatters to use as a list."""
+    formatters = [x.strip() for x in v.split(",") if x.strip()]
 
     for formatter_name in formatters:
         if formatter_name not in FORMATTERS:
-            raise ArgumentError(f"Uknown formatter {formatter_name}")
+            raise ValueError(f"Uknown formatter {formatter_name}")
 
     return formatters
 
 
 def parse_bool(v):
+    """Returns a command line flag as a boolean."""
     if isinstance(v, bool):
-       return v
+        return v
 
     if v.lower() in ("yes", "true", "t", "y", "1"):
         return True
-    elif v.lower() in ("no", "false", "f", "n", "0"):
+    if v.lower() in ("no", "false", "f", "n", "0"):
         return False
 
-    raise ArgumentError("Boolean value expected.")
+    raise ValueError("Boolean value expected.")
+
+
+def parse_frozenset(v: str):
+    """Returns a comma separated string as a frozen set."""
+    return frozenset(x.strip() for x in v.split(",") if x.strip())
