@@ -7,12 +7,15 @@ from pathlib import Path
 import configargparse
 from prettylog import LogFormat, basic_config
 
-from gray.formatters import FORMATTERS
+from gray.formatters import FORMATTERS, OPTIONAL_FORMATTERS
 from gray.processing import FormattingError, process
 from gray.utils.args import parse_bool, parse_formatters
 
 
-FORMATTERS_NAMES = ",".join(FORMATTERS.keys())
+FORMATTERS_NAMES = ",".join(
+    x for x in sorted(FORMATTERS.keys()) if x not in OPTIONAL_FORMATTERS
+)
+OPTIONAL_FORMATTERS_NAMES = ",".join(OPTIONAL_FORMATTERS)
 
 log = logging.getLogger(__name__)
 
@@ -67,7 +70,7 @@ group = parser.add_argument_group("Formatters options")
 group.add_argument(
     "-f",
     "--formatters",
-    help="Enabled formatters separated by comma",
+    help=f"Enabled formatters separated by comma (optional: {OPTIONAL_FORMATTERS_NAMES})",
     type=parse_formatters,
     default=FORMATTERS_NAMES,
 )
@@ -195,6 +198,26 @@ group.add_argument(
     "--fixit-to-fstrings",
     type=parse_bool,
     default=True,
+)
+
+group = parser.add_argument_group("black options")
+group.add_argument(
+    "--black-line-length",
+    help="How many characters per line to allow.",
+    type=int,
+    default=88,
+)
+group.add_argument(
+    "--black-skip-magic-trailing-comma",
+    help="Don't use trailing commas as a reason to split lines.",
+    type=parse_bool,
+    default=False,
+)
+group.add_argument(
+    "--black-skip-string-normalization",
+    help="Don't normalize string quotes or prefixes.",
+    type=parse_bool,
+    default=False,
 )
 
 

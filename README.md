@@ -14,7 +14,7 @@ Gray stands on the shoulders of giants:
 - [trim](https://github.com/myint/trim) - remove trailing whitespaces
 - [unify](https://github.com/myint/unify) - unify quotes style
 - [fixit](https://github.com/Instagram/Fixit) - various code formatters on LibCST
-
+- [black](https://github.com/psf/black) - optional - the uncompromising Python code formatter
 
 ## Usage
 
@@ -42,8 +42,8 @@ Logging options:
 
 Formatters options:
   -f FORMATTERS, --formatters FORMATTERS
-                        Enabled formatters separated by comma (default: add-
-                        trailing-comma,autoflake,fixit,isort,pyupgrade,trim,unify)
+                        Enabled formatters separated by comma (optional: black)
+                        (default: add-trailing-comma,autoflake,fixit,isort,pyupgrade,trim,unify)
   --min-python-version MIN_PYTHON_VERSION
                         Minimum python version to support (default: (3, 9))
 
@@ -88,6 +88,14 @@ fixit options:
   --fixit-to-comprehensions FIXIT_TO_COMPREHENSIONS
   --fixit-to-literals FIXIT_TO_LITERALS
   --fixit-to-fstrings FIXIT_TO_FSTRINGS
+
+black options:
+  --black-line-length BLACK_LINE_LENGTH
+                        How many characters per line to allow. (default: 88)
+  --black-skip-magic-trailing-comma BLACK_SKIP_MAGIC_TRAILING_COMMA
+                        Don't use trailing commas as a reason to split lines. (default: False)
+  --black-skip-string-normalization BLACK_SKIP_STRING_NORMALIZATION
+                        Don't normalize string quotes or prefixes. (default: False)
 
 Args that start with '--' (eg. --pool-size) can also be set in a config file
 (/Users/apple/.gray or /etc/gray.conf or ./gray.conf). Config file syntax
