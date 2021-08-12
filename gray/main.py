@@ -169,7 +169,7 @@ def get_parser():
         "--isort-include-trailing-comma",
         help="Includes a trailing comma on multi line imports that include"
             " parentheses.",
-        type=bool,
+        type=parse_bool,
         default=True,
     )
     group.add_argument(
@@ -182,7 +182,7 @@ def get_parser():
         "--isort-skip-gitignore",
         help="Treat project as a git repository and ignore files listed in"
             " .gitignore.",
-        type=bool,
+        type=parse_bool,
         default=True,
     )
     group.add_argument(
@@ -191,13 +191,13 @@ def get_parser():
             " slashes. **NOTE**: This is separate from wrap modes, and only"
             " affects how individual lines that are too long get continued, not"
             " sections of multiple imports..",
-        type=bool,
+        type=parse_bool,
         default=True,
     )
     group.add_argument(
         "--isort-length-sort",
         help="Sort imports by their string length.",
-        type=bool,
+        type=parse_bool,
         default=False,
     )
 
