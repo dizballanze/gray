@@ -1,7 +1,7 @@
 import subprocess
 from pathlib import Path
 
-from gray.main import parser
+from gray.main import get_parser
 from gray.processing import process
 
 
@@ -27,6 +27,7 @@ def git_pre_commit(stop_on_modify=True):
         return 0
 
     staged_files_fullpath = [str(root_dir / f) for f in staged_files]
+    parser = get_parser()
     arguments = parser.parse_args(args=" ".join(staged_files_fullpath))
     process(arguments)
 
