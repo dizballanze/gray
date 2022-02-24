@@ -1,5 +1,29 @@
 ## History
 
+0.10.0
+----------------------
+
+* [black](https://github.com/psf/black) support (by [@sodul](https://github.com/sodul))
+
+
+0.9.0
+----------------------
+
+* update python dependencies
+
+
+0.8.1
+----------------------
+
+* Add support for python 3.9
+
+
+0.8.0
+----------------------
+
+* [fixit](https://github.com/Instagram/Fixit) support
+
+
 0.7.0
 ----------------------
 
@@ -11,10 +35,12 @@
 
 * isort: keep line breaks before local imports
 
+
 0.6.1
 ----------------------
 
 * Fix isort imports grouping
+
 
 0.6.0
 ----------------------
@@ -22,11 +48,13 @@
 * Bump isort to 5.4.2
 * Use parentheses in multiline imports
 
+
 0.5.0
 ----------------------
 
 * Add autoflake formatter
 * Add trim formatter
+
 
 0.4.0
 ----------------------
