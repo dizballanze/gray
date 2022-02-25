@@ -6,5 +6,4 @@
 
 ## Contributors
 
-* Stephane Odul 
-
+* Stephane Odul

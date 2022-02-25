@@ -32,6 +32,15 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
+  --exclude EXCLUDE     A regular expression matching files and directories that should be
+                        excluded from formatting. Passing an explicit empty value means not paths
+                        get excluded. Use '/' as directory separator, including on Windows.
+                        [default: {DEFAULT_EXCLUDES}] (default: (.*/)?(\.direnv|\.eggs|\.git|\.hg|
+                        \.mypy_cache|\.nox|\.tox|\.venv|venv|\.svn|_build|buck-
+                        out|build|dist|__pypackages__)$)
+  --extend-exclude EXTEND_EXCLUDE
+                        An additional regular expression to use besides --exclude. This allows to
+                        keep the default regex from --exclude. (default: None)
   --pool-size POOL_SIZE
                         process pool size (default: 8)
   --do-not-detect-venv  Don't try to detect virtualenv (default: False)

@@ -1,5 +1,21 @@
 ## History
 
+0.12.0
+----------------------
+
+* Add support to exclude files and folders (by [@sodul](https://github.com/sodul))
+  Potential backward compatibility issue with the default exclusion list.
+  Some files and folders might now be excluded while they would have been
+  processed in older versions.
+* remove travis.yml since it is no longer usable.
+
+0.11.0
+----------------------
+
+* Add GitHub Action to validate PRs (by [@sodul](https://github.com/sodul))
+* Update third party requirements (by [@sodul](https://github.com/sodul))
+* Drop support for Python 3.6 (by [@sodul](https://github.com/sodul))
+
 0.10.0
 ----------------------
 

@@ -1,7 +1,10 @@
+"""Main processing module for Gray."""
+
 import logging
+import re
 from multiprocessing import Process, Queue
 from pathlib import Path
-from typing import Iterator, Sequence
+from typing import Iterator, List, Sequence, Optional
 
 from configargparse import Namespace
 
@@ -11,34 +14,102 @@ from gray.formatters import FORMATTERS, BaseFormatter, CompositeFormatter
 log = logging.getLogger(__name__)
 
 
-class FormattingError(Exception):
+class Error(Exception):
+    """Base Error class for Gray."""
     exit_code = 1
 
 
+class ConfigurationError(Error):
+    """Raised on a configuration error."""
+    exit_code = 2
+
+
+class FormattingError(Error):
+    """Raised when a formatting error occured."""
+
+
+def _compile_patterns(exclude: Optional[str], extend: Optional[str]) -> List[re.Pattern]:
+    """Compiles the exclude patterns.
+
+    Args:
+        exclude: The default exclusion regex.
+        extend: Additional regex to exclude.
+    Returns:
+        A list of regex patterns.
+    Raises:
+        ConfigurationError: The regex patterns cannot be compiled.
+    """
+    compiled: List[re.Pattern] = []
+    try:
+        for pattern in (exclude, extend):
+            if pattern:
+                compiled.append(re.compile(pattern))
+    except re.error as error:
+        raise ConfigurationError(f"Invalid regex passed for exclusion: {error}")
+    return compiled
+
+
+def _is_excluded(path: Path, excludes: Optional[Sequence[re.Pattern]]) -> bool:
+    """Returns True if the given path is in the exclusion list.
+
+    Windows paths are treated as posix path to ensure the same exclusion
+    patterns can be used as on other Unix based OSes.
+
+    Args:
+        path: The path to the file or directory to check for exclusion.
+        excludes: Optional list of exclusion patterns.
+    Returns:
+        True if the path matches .
+    """
+    if not excludes:
+        return False
+    posix_path = str(path.as_posix())
+    for exclude in excludes:
+        if exclude.match(posix_path):
+            return True
+    return False
+
+
 def is_venv(path: Path):
-   return all((
-       (path / "bin" / "python").exists(),
-       (path / "pyvenv.cfg").is_file(),
-   ))
+    return all((
+        (path / "bin" / "python").exists(),
+        (path / "pyvenv.cfg").is_file(),
+    ))
 
 
 def gen_filepaths(
         paths: Sequence[Path],
         process_venv: bool = True,
+        excludes: Optional[Sequence[re.Pattern]] = None,
 ) -> Iterator[Path]:
+    """Generates the paths to the files to be formatted.
+
+    Args:
+          paths: Paths to glob from.
+          process_venv: If False skipp virtualenv directories. Defaults is True.
+          excludes: Optional regex patterns of files and directories to exclude.
+    Yields:
+        Paths to the files to be formatter.
+    """
     for path in paths:
         if path.is_file() and (path.suffix == ".py"):
+            if _is_excluded(path, excludes):
+                log.debug("Excluding %s", path)
+                continue
             yield path
         elif path.is_dir():
-            if is_venv(path) and not process_venv:
+            if _is_excluded(path, excludes):
+                log.debug("Excluding %s", path)
+                continue
+            if not process_venv and is_venv(path):
                 log.warning(
                     "%s looks like virtualenv directory. Skipping... ", path,
                 )
                 log.warning("Use --do-not-detect-venv flag to turn this off")
                 continue
-            yield from path.glob("**/*.py")
+            yield from gen_filepaths(path.glob('*'), process_venv=process_venv, excludes=excludes)
         else:
-            log.debug("Skipping %r", path)
+            log.debug("Skipping %s", path)
 
 
 def fade_file(file_path: Path, formatter: BaseFormatter):
@@ -62,7 +133,13 @@ def worker(tasks: Queue, result: Queue, formatter: BaseFormatter):
         fname = tasks.get()
 
 
-def process(arguments: Namespace):
+def process(arguments: Namespace) -> None:
+    """Configures and runs the formatters.
+
+    Args:
+        arguments: The configuration arguments.
+    """
+    excludes: List[re.Pattern] = _compile_patterns(arguments.exclude, arguments.extend_exclude)
     tasks = Queue()
     results = Queue()
     formatter = CompositeFormatter(
@@ -76,7 +153,7 @@ def process(arguments: Namespace):
         prc.start()
 
     tasks_map = set()
-    for fname in gen_filepaths(arguments.paths, arguments.do_not_detect_venv):
+    for fname in gen_filepaths(arguments.paths, arguments.do_not_detect_venv, excludes):
         tasks_map.add(fname)
         tasks.put_nowait(fname)
 
