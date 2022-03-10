@@ -4,7 +4,7 @@ import logging
 import re
 from multiprocessing import Process, Queue
 from pathlib import Path
-from typing import Iterator, List, Sequence, Optional
+from typing import Iterator, List, Optional, Sequence
 
 from configargparse import Namespace
 
@@ -14,17 +14,17 @@ from gray.formatters import FORMATTERS, BaseFormatter, CompositeFormatter
 log = logging.getLogger(__name__)
 
 
-class Error(Exception):
+class GrayError(Exception):
     """Base Error class for Gray."""
     exit_code = 1
 
 
-class ConfigurationError(Error):
+class ConfigurationError(GrayError):
     """Raised on a configuration error."""
     exit_code = 2
 
 
-class FormattingError(Error):
+class FormattingError(GrayError):
     """Raised when a formatting error occured."""
 
 
@@ -64,10 +64,7 @@ def _is_excluded(path: Path, excludes: Optional[Sequence[re.Pattern]]) -> bool:
     if not excludes:
         return False
     posix_path = str(path.as_posix())
-    for exclude in excludes:
-        if exclude.match(posix_path):
-            return True
-    return False
+    return any(exclude.match(posix_path) for exclude in excludes)
 
 
 def is_venv(path: Path):
@@ -107,7 +104,7 @@ def gen_filepaths(
                 )
                 log.warning("Use --do-not-detect-venv flag to turn this off")
                 continue
-            yield from gen_filepaths(path.glob('*'), process_venv=process_venv, excludes=excludes)
+            yield from gen_filepaths(path.glob("*"), process_venv=process_venv, excludes=excludes)
         else:
             log.debug("Skipping %s", path)
 

@@ -10,7 +10,7 @@ import configargparse
 from prettylog import LogFormat, basic_config
 
 from gray.formatters import FORMATTERS, OPTIONAL_FORMATTERS
-from gray.processing import Error, process
+from gray.processing import GrayError, process
 from gray.utils.args import parse_bool, parse_formatters, parse_frozenset
 
 
@@ -56,7 +56,7 @@ def get_parser() -> configargparse.ArgumentParser:
             " be excluded from formatting. Passing an explicit empty value"
             " means not paths get excluded. Use '/' as directory separator,"
             " including on Windows. [default: {DEFAULT_EXCLUDES}]",
-        default=DEFAULT_EXCLUDES
+        default=DEFAULT_EXCLUDES,
     )
 
     parser.add_argument(
@@ -92,7 +92,7 @@ def get_parser() -> configargparse.ArgumentParser:
     group.add_argument(
         "-f",
         "--formatters",
-        help=f"Enabled formatters separated by comma"
+        help="Enabled formatters separated by comma"
             " (optional: {OPTIONAL_FORMATTERS_NAMES})",
         type=parse_formatters,
         default=FORMATTERS_NAMES,
@@ -322,7 +322,7 @@ def main():
 
     try:
         process(arguments)
-    except Error as e:
+    except GrayError as e:
         exit(e.exit_code)
 
 

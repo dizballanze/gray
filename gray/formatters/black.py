@@ -32,4 +32,5 @@ class BlackFormatter(BaseFormatter):
             fast=False,
             write_back=black.WriteBack.YES,
             mode=self._mode,
-            report=black.Report())
+            report=black.Report(),
+        )
