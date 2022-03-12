@@ -20,9 +20,9 @@ Gray stands on the shoulders of giants:
 
 ```
 usage:
-        gray myapp.py
-        gray myproj/ tests/
-        gray --log-level debug --formatters isort,unify ~/app
+            gray myapp.py
+            gray myproj/ tests/
+            gray --log-level debug --formatters isort,unify ~/app
 
 
 Less uncompromising Python code formatter.
@@ -32,6 +32,16 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
+  --exclude EXCLUDE     A regular expression matching files and directories that should be
+                        excluded from formatting. Passing an explicit empty value means not paths
+                        get excluded. Use '/' as directory separator, including on Windows.
+                        [default: (.*/)?(\.direnv|\.eggs|\.git|\.hg|\.mypy_cache|\.nox|\.tox|\.ven
+                        v|venv|\.svn|_build|buck-out|build|dist|__pypackages__)$] (default: (.*/)?
+                        (\.direnv|\.eggs|\.git|\.hg|\.mypy_cache|\.nox|\.tox|\.venv|venv|\.svn|_bu
+                        ild|buck-out|build|dist|__pypackages__)$)
+  --extend-exclude EXTEND_EXCLUDE
+                        An additional regular expression to use besides --exclude. This allows to
+                        keep the default regex from --exclude. (default: None)
   --pool-size POOL_SIZE
                         process pool size (default: 8)
   --do-not-detect-venv  Don't try to detect virtualenv (default: False)
@@ -42,8 +52,8 @@ Logging options:
 
 Formatters options:
   -f FORMATTERS, --formatters FORMATTERS
-                        Enabled formatters separated by comma (optional: black)
-                        (default: add-trailing-comma,autoflake,fixit,isort,pyupgrade,trim,unify)
+                        Enabled formatters separated by comma (optional: black) (default: add-
+                        trailing-comma,autoflake,fixit,isort,pyupgrade,trim,unify)
   --min-python-version MIN_PYTHON_VERSION
                         Minimum python version to support (default: (3, 9))
 
@@ -127,11 +137,10 @@ black options:
   --black-skip-string-normalization BLACK_SKIP_STRING_NORMALIZATION
                         Don't normalize string quotes or prefixes. (default: False)
 
-Args that start with '--' (eg. --pool-size) can also be set in a config file
-(/Users/apple/.gray or /etc/gray.conf or ./gray.conf). Config file syntax
-allows: key=value, flag=true, stuff=[a,b,c] (for details, see syntax at
-https://goo.gl/R74nmi). If an arg is specified in more than one place, then
-commandline values override config file values which override defaults.
+Args that start with '--' (eg. --exclude) can also be set in a config file (/Users/stephane/.gray
+or /etc/gray.conf or ./gray.conf). Config file syntax allows: key=value, flag=true, stuff=[a,b,c]
+(for details, see syntax at https://goo.gl/R74nmi). If an arg is specified in more than one place,
+then commandline values override config file values which override defaults.
 ```
 
 

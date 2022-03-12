@@ -1,3 +1,5 @@
+"""Main module of gray."""
+
 import argparse
 import logging
 import os
@@ -8,7 +10,7 @@ import configargparse
 from prettylog import LogFormat, basic_config
 
 from gray.formatters import FORMATTERS, OPTIONAL_FORMATTERS
-from gray.processing import FormattingError, process
+from gray.processing import GrayError, process
 from gray.utils.args import parse_bool, parse_formatters, parse_frozenset
 
 
@@ -16,10 +18,14 @@ FORMATTERS_NAMES = ",".join(
     x for x in sorted(FORMATTERS.keys()) if x not in OPTIONAL_FORMATTERS
 )
 OPTIONAL_FORMATTERS_NAMES = ",".join(OPTIONAL_FORMATTERS)
-
+DEFAULT_EXCLUDES = (
+    r"(.*/)?(\.direnv|\.eggs|\.git|\.hg|\.mypy_cache|\.nox|\.tox|\.venv|venv"
+    r"|\.svn|_build|buck-out|build|dist|__pypackages__)$"
+)
 log = logging.getLogger(__name__)
 
-def get_parser():
+
+def get_parser() -> configargparse.ArgumentParser:
     parser = configargparse.ArgumentParser(
         add_env_var_help=False,
         allow_abbrev=False,
@@ -42,6 +48,21 @@ def get_parser():
     parser.add_argument(
         "paths", nargs="*", help="Paths to format", type=Path,
         default=(Path("."),),
+    )
+
+    parser.add_argument(
+        "--exclude", type=str,
+        help="A regular expression matching files and directories that should"
+            " be excluded from formatting. Passing an explicit empty value"
+            " means not paths get excluded. Use '/' as directory separator,"
+            f" including on Windows. [default: {DEFAULT_EXCLUDES}]",
+        default=DEFAULT_EXCLUDES,
+    )
+
+    parser.add_argument(
+        "--extend-exclude", type=str,
+        help="An additional regular expression to use besides --exclude. This"
+            " allows to keep the default regex from --exclude.",
     )
 
     parser.add_argument(
@@ -71,8 +92,8 @@ def get_parser():
     group.add_argument(
         "-f",
         "--formatters",
-        help=f"Enabled formatters separated by comma"
-            " (optional: {OPTIONAL_FORMATTERS_NAMES})",
+        help="Enabled formatters separated by comma"
+            f" (optional: {OPTIONAL_FORMATTERS_NAMES})",
         type=parse_formatters,
         default=FORMATTERS_NAMES,
     )
@@ -301,7 +322,7 @@ def main():
 
     try:
         process(arguments)
-    except FormattingError as e:
+    except GrayError as e:
         exit(e.exit_code)
 
 

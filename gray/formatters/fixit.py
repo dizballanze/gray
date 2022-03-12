@@ -5,7 +5,7 @@ from fixit.rule_lint_engine import lint_file_and_apply_patches
 from fixit.rules.no_redundant_fstring import NoRedundantFStringRule
 from fixit.rules.no_redundant_lambda import NoRedundantLambdaRule
 from fixit.rules.no_redundant_list_comprehension import (
-    NoRedundantListComprehensionRule
+    NoRedundantListComprehensionRule,
 )
 from fixit.rules.rewrite_to_comprehension import RewriteToComprehensionRule
 from fixit.rules.rewrite_to_literal import RewriteToLiteralRule

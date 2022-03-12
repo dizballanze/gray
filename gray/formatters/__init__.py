@@ -23,7 +23,7 @@ FORMATTERS = MappingProxyType({
     "unify": UnifyFormatter,
 })
 
-OPTIONAL_FORMATTERS = ('black',)
+OPTIONAL_FORMATTERS = ("black",)
 
 
 __all__ = ("FORMATTERS", "BaseFormatter", "CompositeFormatter")

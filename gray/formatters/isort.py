@@ -35,16 +35,18 @@ class SortImportsFormatter(BaseFormatter):
             self._settings["wrap_length"] = arguments.isort_wrap_length
         if arguments.isort_known_third_party:
             self._settings["known_third_party"] = (
-                arguments.isort_known_third_party)
+                arguments.isort_known_third_party
+            )
         if arguments.isort_known_first_party:
             self._settings["known_first_party"] = (
-                arguments.isort_known_first_party)
+                arguments.isort_known_first_party
+            )
         if arguments.isort_known_local_folder:
             self._settings["known_local_folder"] = (
-                arguments.isort_known_local_folder)
+                arguments.isort_known_local_folder
+            )
         if arguments.isort_skip_gitignore:
             self._settings["skip_gitignore"] = arguments.isort_skip_gitignore
-
 
     def process(self, file_path: Path):
         """Process the given file through isort."""
