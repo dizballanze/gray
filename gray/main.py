@@ -55,7 +55,7 @@ def get_parser() -> configargparse.ArgumentParser:
         help="A regular expression matching files and directories that should"
             " be excluded from formatting. Passing an explicit empty value"
             " means not paths get excluded. Use '/' as directory separator,"
-            " including on Windows. [default: {DEFAULT_EXCLUDES}]",
+            f" including on Windows. [default: {DEFAULT_EXCLUDES}]",
         default=DEFAULT_EXCLUDES,
     )
 
@@ -93,7 +93,7 @@ def get_parser() -> configargparse.ArgumentParser:
         "-f",
         "--formatters",
         help="Enabled formatters separated by comma"
-            " (optional: {OPTIONAL_FORMATTERS_NAMES})",
+            f" (optional: {OPTIONAL_FORMATTERS_NAMES})",
         type=parse_formatters,
         default=FORMATTERS_NAMES,
     )
