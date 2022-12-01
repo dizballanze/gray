@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Iterator, List, Optional, Sequence
 
 from configargparse import Namespace
+from rich.logging import RichHandler
 
 from gray.formatters import FORMATTERS, BaseFormatter, CompositeFormatter
 
@@ -115,7 +116,14 @@ def fade_file(file_path: Path, formatter: BaseFormatter):
     log.info("\"%s\" file was processed", file_path)
 
 
-def worker(tasks: Queue, result: Queue, formatter: BaseFormatter):
+def worker(
+    tasks: Queue, result: Queue,
+    formatter: BaseFormatter, log_level: int
+):
+    handler = RichHandler()
+    handler.setFormatter(logging.Formatter("%(message)s", datefmt="[%X]"))
+    logging.basicConfig(level=log_level, handlers=[handler])
+
     fname = tasks.get()
 
     while fname is not None:
@@ -144,8 +152,9 @@ def process(arguments: Namespace) -> None:
     )
 
     processes = []
+    log_level = getattr(logging, arguments.log_level.upper(), logging.INFO)
     for _ in range(arguments.pool_size):
-        prc = Process(target=worker, args=(tasks, results, formatter))
+        prc = Process(target=worker, args=(tasks, results, formatter, log_level))
         processes.append(prc)
         prc.start()
 

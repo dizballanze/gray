@@ -1,9 +1,9 @@
 add-trailing-comma>=2.2.1
-autoflake>=1.4
+autoflake==1.4
 black>=22.1.0
 ConfigArgParse>=1.5.3,<2
 fixit>=0.1.4,<1
 isort>=5.10.1
-prettylog>=0.3.0
+rich~=12.6
 pyupgrade>=2.31.0
 unify>=0.5

@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 
 import configargparse
-from prettylog import LogFormat, basic_config
+from rich.logging import RichHandler
 
 from gray.formatters import FORMATTERS, OPTIONAL_FORMATTERS
 from gray.processing import GrayError, process
@@ -83,9 +83,6 @@ def get_parser() -> configargparse.ArgumentParser:
         "--log-level",
         default="info",
         choices=("debug", "info", "warning", "error", "fatal"),
-    )
-    group.add_argument(
-        "--log-format", choices=LogFormat.choices(), default="color",
     )
 
     group = parser.add_argument_group("Formatters options")
@@ -313,11 +310,13 @@ def get_parser() -> configargparse.ArgumentParser:
 def main():
     parser = get_parser()
     arguments = parser.parse_args()
-    basic_config(
-        level=arguments.log_level,
-        log_format=arguments.log_format,
-        buffered=False,
-        date_format=None,
+
+    handler = RichHandler(rich_tracebacks=True)
+    handler.setFormatter(logging.Formatter("%(message)s", datefmt="[%X]"))
+
+    logging.basicConfig(
+        level=getattr(logging, arguments.log_level.upper(), logging.INFO),
+        handlers=[handler],
     )
 
     try:
