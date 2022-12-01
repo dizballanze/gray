@@ -10,7 +10,7 @@ import configargparse
 from rich.logging import RichHandler
 
 from gray.formatters import FORMATTERS, OPTIONAL_FORMATTERS
-from gray.processing import GrayError, process
+from gray.processing import GrayError, process, log_config
 from gray.utils.args import parse_bool, parse_formatters, parse_frozenset
 
 
@@ -316,14 +316,7 @@ def get_parser() -> configargparse.ArgumentParser:
 def main():
     parser = get_parser()
     arguments = parser.parse_args()
-
-    handler = RichHandler(rich_tracebacks=True)
-    handler.setFormatter(logging.Formatter("%(message)s", datefmt="[%X]"))
-
-    logging.basicConfig(
-        level=getattr(logging, arguments.log_level.upper(), logging.INFO),
-        handlers=[handler],
-    )
+    log_config(arguments.log_level)
 
     try:
         process(arguments)
