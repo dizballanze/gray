@@ -246,6 +246,12 @@ def get_parser() -> configargparse.ArgumentParser:
         default=True,
     )
 
+    group.add_argument(
+        "--autoflake-remove-rhs-for-unused-variables",
+        action="store_true",
+        help="remove RHS of statements when removing unused variables (unsafe)"
+    )
+
     group = parser.add_argument_group("trim options")
     group.add_argument(
         "--trim-leading-newlines",
