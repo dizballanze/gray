@@ -7,10 +7,10 @@ import sys
 from pathlib import Path
 
 import configargparse
-from prettylog import LogFormat, basic_config
+from rich.logging import RichHandler
 
 from gray.formatters import FORMATTERS, OPTIONAL_FORMATTERS
-from gray.processing import GrayError, process
+from gray.processing import GrayError, process, log_config
 from gray.utils.args import parse_bool, parse_formatters, parse_frozenset
 
 
@@ -83,9 +83,6 @@ def get_parser() -> configargparse.ArgumentParser:
         "--log-level",
         default="info",
         choices=("debug", "info", "warning", "error", "fatal"),
-    )
-    group.add_argument(
-        "--log-format", choices=LogFormat.choices(), default="color",
     )
 
     group = parser.add_argument_group("Formatters options")
@@ -249,6 +246,12 @@ def get_parser() -> configargparse.ArgumentParser:
         default=True,
     )
 
+    group.add_argument(
+        "--autoflake-remove-rhs-for-unused-variables",
+        action="store_true",
+        help="remove RHS of statements when removing unused variables (unsafe)"
+    )
+
     group = parser.add_argument_group("trim options")
     group.add_argument(
         "--trim-leading-newlines",
@@ -313,12 +316,7 @@ def get_parser() -> configargparse.ArgumentParser:
 def main():
     parser = get_parser()
     arguments = parser.parse_args()
-    basic_config(
-        level=arguments.log_level,
-        log_format=arguments.log_format,
-        buffered=False,
-        date_format=None,
-    )
+    log_config(arguments.log_level)
 
     try:
         process(arguments)

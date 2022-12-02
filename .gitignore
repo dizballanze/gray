@@ -32,3 +32,4 @@ pip-log.txt
 # Virtualenv
 env/
 venv/
+.venv/

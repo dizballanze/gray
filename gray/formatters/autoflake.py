@@ -16,10 +16,12 @@ class AutoflakeFormatter(BaseFormatter):
             remove_all_unused_imports=arguments.autoflake_remove_all_unused_imports,
             remove_duplicate_keys=arguments.autoflake_remove_duplicate_keys,
             remove_unused_variables=arguments.autoflake_remove_unused_variables,
+            remove_rhs_for_unused_variables=arguments.autoflake_remove_rhs_for_unused_variables,
             imports="",
             check=False,
             in_place=True,
+            write_to_stdout=False,
         )
 
     def process(self, file_path: Path):
-        fix_file(file_path, args=self._args, standard_out=sys.stdout)
+        fix_file(file_path, args=vars(self._args), standard_out=sys.stderr)

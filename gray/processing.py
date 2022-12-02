@@ -4,14 +4,23 @@ import logging
 import re
 from multiprocessing import Process, Queue
 from pathlib import Path
-from typing import Iterator, List, Optional, Sequence
+from typing import Iterator, List, Optional, Sequence, Union
 
 from configargparse import Namespace
+from rich.logging import RichHandler
 
 from gray.formatters import FORMATTERS, BaseFormatter, CompositeFormatter
 
 
 log = logging.getLogger(__name__)
+
+
+def log_config(level: Union[str, int]):
+    if isinstance(level, str):
+        level = getattr(logging, level.upper(), logging.INFO)
+    handler = RichHandler(rich_tracebacks=True)
+    handler.setFormatter(logging.Formatter("%(message)s", datefmt="[%X]"))
+    logging.basicConfig(level=level, handlers=[handler])
 
 
 class GrayError(Exception):
@@ -115,7 +124,13 @@ def fade_file(file_path: Path, formatter: BaseFormatter):
     log.info("\"%s\" file was processed", file_path)
 
 
-def worker(tasks: Queue, result: Queue, formatter: BaseFormatter):
+def worker(
+    tasks: Queue, result: Queue,
+    formatter: BaseFormatter, log_level: int
+):
+    # Logs for separate process should be configured again
+    log_config(log_level)
+
     fname = tasks.get()
 
     while fname is not None:
@@ -144,8 +159,9 @@ def process(arguments: Namespace) -> None:
     )
 
     processes = []
+    log_level = getattr(logging, arguments.log_level.upper(), logging.INFO)
     for _ in range(arguments.pool_size):
-        prc = Process(target=worker, args=(tasks, results, formatter))
+        prc = Process(target=worker, args=(tasks, results, formatter, log_level))
         processes.append(prc)
         prc.start()
 
