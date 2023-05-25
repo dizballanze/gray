@@ -48,7 +48,6 @@ optional arguments:
 
 Logging options:
   --log-level {debug,info,warning,error,fatal}
-  --log-format {stream,color,json,syslog}
 
 Formatters options:
   -f FORMATTERS, --formatters FORMATTERS
