@@ -16,7 +16,7 @@
        fail-fast: false
        matrix:
          # Python 3.10 needs newer version of pytest for compatibility.
-         python-version: ['3.7', '3.8', '3.9', '3.10', '3.11']
+         python-version: ['3.8', '3.9', '3.10', '3.11', '3.12']
 
      steps:
      - uses: actions/checkout@v2

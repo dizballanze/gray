@@ -25,7 +25,7 @@ history = open("HISTORY.md").read()
 
 setup(
     name=module_name,
-    version="0.13.0",
+    version="0.14.0",
     description="Less uncompromising Python code formatter",
     long_description=f"{readme}\n\n{history}",
     long_description_content_type="text/markdown",
@@ -44,10 +44,11 @@ setup(
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
         "Natural Language :: English",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
         "Programming Language :: Python :: 3 :: Only",
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Topic :: Software Development :: Quality Assurance",
