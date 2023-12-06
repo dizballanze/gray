@@ -1,5 +1,15 @@
 ## History
 
+0.14.0
+----------------------
+* Drop support for Python 3.7, add support for Python 3.12, upgrade ifixit to v2 (by [@sodul](https://github.com/sodul))
+
+
+0.13.0
+----------------------
+* Add support for Python 3.11 (by [@mosquito](https://github.com/mosquito))
+
+
 0.12.0
 ----------------------
 
@@ -9,12 +19,14 @@
   processed in older versions.
 * remove travis.yml since it is no longer usable.
 
+
 0.11.0
 ----------------------
 
 * Add GitHub Action to validate PRs (by [@sodul](https://github.com/sodul))
 * Update third party requirements (by [@sodul](https://github.com/sodul))
 * Drop support for Python 3.6 (by [@sodul](https://github.com/sodul))
+
 
 0.10.0
 ----------------------
