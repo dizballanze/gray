@@ -1,30 +1,32 @@
 # GitHub action to run on every Pull Request.
 
- name: CI
+name: CI
 
- on:
-   push:
-     branches: [ 'master' ]
-   pull_request:
-     branches: [ '**' ]
-   workflow_dispatch:
-     # Allows us to manually trigger the workflow.
- jobs:
-   build:
-     runs-on: ubuntu-latest
-     strategy:
-       fail-fast: false
-       matrix:
-         # Python 3.10 needs newer version of pytest for compatibility.
-         python-version: ['3.8', '3.9', '3.10', '3.11', '3.12']
+on:
+  push:
+    branches: [ 'master' ]
+  pull_request:
+    branches: [ '**' ]
+  workflow_dispatch:
+    # Allows us to manually trigger the workflow.
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        # Tests are failing on Windows for now.
+        os: ['macos-latest', 'ubuntu-latest']
+        # Python 3.10+ needs newer versions of pytest for compatibility.
+        python-version: ['3.8', '3.9', '3.10', '3.11', '3.12']
 
-     steps:
-     - uses: actions/checkout@v2
-     - name: Set up Python ${{ matrix.python-version }}
-       uses: actions/setup-python@v2
-       with:
-         python-version: ${{ matrix.python-version }}
-     - name: Install Python dependencies
-       run: pip install -r requirements.txt -r requirements.dev.txt
-     - name: Unittests
-       run: pytest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install Python dependencies
+      run: pip install -r requirements.txt -r requirements.dev.txt
+    - name: Unittests
+      run: pytest
