@@ -167,7 +167,7 @@ def get_parser() -> configargparse.ArgumentParser:
     group.add_argument(
         "--isort-known-first-party",
         help="Force isort to recognize a module as being part of the current"
-             " python project.",
+            " python project.",
         type=parse_frozenset,
     )
     group.add_argument(
@@ -217,6 +217,17 @@ def get_parser() -> configargparse.ArgumentParser:
         help="Sort imports by their string length.",
         type=parse_bool,
         default=False,
+    )
+    group.add_argument(
+        "--isort-add-imports",
+        help="Adds the specified import lines to all files,"
+            " automatically determining correct placement.",
+        type=parse_frozenset,
+    )
+    group.add_argument(
+        "--isort-remove-imports",
+        help="Removes the specified imports from all files.",
+        type=parse_frozenset,
     )
 
     group = parser.add_argument_group("autoflake options")

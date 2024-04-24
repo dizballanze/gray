@@ -47,6 +47,10 @@ class SortImportsFormatter(BaseFormatter):
             )
         if arguments.isort_skip_gitignore:
             self._settings["skip_gitignore"] = arguments.isort_skip_gitignore
+        if arguments.isort_add_imports:
+            self._settings["add_imports"] = arguments.isort_add_imports
+        if arguments.isort_remove_imports:
+            self._settings["remove_imports"] = arguments.isort_remove_imports
 
     def process(self, file_path: Path):
         """Process the given file through isort."""
