@@ -1,5 +1,9 @@
 ## History
 
+0.15.0
+----------------------
+* Add support for isort add-imports and remove-imports features (by [@sodul](https://github.com/sodul))
+
 0.14.0
 ----------------------
 * Drop support for Python 3.7, add support for Python 3.12, upgrade ifixit to v2 (by [@sodul](https://github.com/sodul))
