@@ -5,5 +5,5 @@ black>=22.1.0
 fixit>=2.1.0
 isort>=5.10.1
 pyupgrade>=2.31.0
-rich~=12.6
+rich>=12.6,<15
 unify>=0.5

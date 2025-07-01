@@ -1,5 +1,9 @@
 ## History
 
+0.16.0
+----------------------
+* Bump `rich` version
+
 0.15.0
 ----------------------
 * Add support for isort add-imports and remove-imports features (by [@sodul](https://github.com/sodul))

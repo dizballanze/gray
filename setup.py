@@ -25,7 +25,7 @@ history = open("HISTORY.md").read()
 
 setup(
     name=module_name,
-    version="0.15.0",
+    version="0.16.0",
     description="Less uncompromising Python code formatter",
     long_description=f"{readme}\n\n{history}",
     long_description_content_type="text/markdown",
