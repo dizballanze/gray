@@ -18,12 +18,12 @@ jobs:
         # Tests are failing on Windows for now.
         os: ['macos-latest', 'ubuntu-latest']
         # Python 3.10+ needs newer versions of pytest for compatibility.
-        python-version: ['3.8', '3.9', '3.10', '3.11', '3.12']
+        python-version: ['3.8', '3.9', '3.10', '3.11', '3.12', '3.13']
 
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v5.6
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install Python dependencies
