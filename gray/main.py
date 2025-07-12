@@ -7,10 +7,9 @@ import sys
 from pathlib import Path
 
 import configargparse
-from rich.logging import RichHandler
 
 from gray.formatters import FORMATTERS, OPTIONAL_FORMATTERS
-from gray.processing import GrayError, process, log_config
+from gray.processing import GrayError, log_config, process
 from gray.utils.args import parse_bool, parse_formatters, parse_frozenset
 
 
@@ -41,7 +40,7 @@ def get_parser() -> configargparse.ArgumentParser:
         usage="""
             gray myapp.py
             gray myproj/ tests/
-            gray --log-level debug --formatters isort,unify ~/app
+            gray --log-level debug --formatters isort,string_fixer ~/app
         """,
     )
 
@@ -121,11 +120,12 @@ def get_parser() -> configargparse.ArgumentParser:
         default=False,
     )
 
-    group = parser.add_argument_group("unify options")
+    group = parser.add_argument_group("string_fixer options")
     group.add_argument(
-        "--unify-quote",
+        "--string-fixer-quote",
         help="preferred quote",
-        default='"',
+        default="double",
+        choices=("single", "double"),
     )
 
     group = parser.add_argument_group("isort options")
@@ -260,7 +260,7 @@ def get_parser() -> configargparse.ArgumentParser:
     group.add_argument(
         "--autoflake-remove-rhs-for-unused-variables",
         action="store_true",
-        help="remove RHS of statements when removing unused variables (unsafe)"
+        help="remove RHS of statements when removing unused variables (unsafe)",
     )
 
     group = parser.add_argument_group("trim options")

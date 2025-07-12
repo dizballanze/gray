@@ -126,7 +126,7 @@ def fade_file(file_path: Path, formatter: BaseFormatter):
 
 def worker(
     tasks: Queue, result: Queue,
-    formatter: BaseFormatter, log_level: int
+    formatter: BaseFormatter, log_level: int,
 ):
     # Logs for separate process should be configured again
     log_config(log_level)

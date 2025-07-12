@@ -1,5 +1,9 @@
 ## History
 
+1.0.0
+----------------------
+* Switched from unify to string_fixer for quote style formatting, since unify doesn't work in Python 3.11+
+
 0.16.0
 ----------------------
 * Bump `rich` version

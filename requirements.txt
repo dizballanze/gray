@@ -6,4 +6,4 @@ fixit>=2.1.0
 isort>=5.10.1
 pyupgrade>=2.31.0
 rich>=12.6,<15
-unify>=0.5
+string_fixer>=0.5.0
