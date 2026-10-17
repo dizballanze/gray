@@ -51,6 +51,8 @@ class SortImportsFormatter(BaseFormatter):
             self._settings["add_imports"] = arguments.isort_add_imports
         if arguments.isort_remove_imports:
             self._settings["remove_imports"] = arguments.isort_remove_imports
+        if arguments.isort_indent:
+            self._settings["indent"] = arguments.isort_indent
 
     def process(self, file_path: Path):
         """Process the given file through isort."""

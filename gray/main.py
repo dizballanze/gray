@@ -229,6 +229,14 @@ def get_parser() -> configargparse.ArgumentParser:
         help="Removes the specified imports from all files.",
         type=parse_frozenset,
     )
+    group.add_argument(
+        "--isort-indent",
+        help="What to use for each level of indentation."
+            " With 'tab', be sure to set --isort-multi-line-output"
+            " to something non-grid, such as 3, 'vert-hanging'.",
+        type=str,
+        default="space"
+    )
 
     group = parser.add_argument_group("autoflake options")
     group.add_argument(
